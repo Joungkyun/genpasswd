@@ -64,5 +64,17 @@ Usage: genpasswd [OPTION]
   [root@host ~]$
   ```
 
+  * user define salt  
+  > FORMAT: $***ALGORITHM_NUMBER***$***SALT_CAHRACTERS***$
+   * ALGORITHM_NUM : 1(md5), 5(sha256), 6(sha512)
+   * SALT_CAHRACTERS:
+     * md5 MAX 8 characters
+     * sha256/sha512 max 16 characters
+   * If algorithm prefix ($ALGORITHM_NUM$) is not exists, genpasswd check -m option value and pre-attach the algorithm prefix with user define salt.
+   * for examples:
+     * md5: ***$1$01234567$*** or ***01234567***
+     * sha256: ***$5$0123456789abcdeg$*** or ***0123456789abcdefg***
+     * sha512: ***$6$0123456789abcdeg$*** or ***0123456789abcdefg***
+
 ## Credits
 JoungKyun.Kim
