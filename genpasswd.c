@@ -113,7 +113,7 @@ char * mksalt (int type, int size) {
 	return salt;
 }
 
-int main(const int argc, const char ** argv) {
+int main (const int argc, const char ** argv) {
 	int opt;
 	int method = -1;
 	char usalt[64] = { 0, };
@@ -252,5 +252,5 @@ int main(const int argc, const char ** argv) {
 	printf("%s\n", crypt(pass1, (char*) salt));
 	safe_free (pass1);
 
-	return;
+	return 0;
 }
