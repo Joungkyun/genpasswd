@@ -1,2 +1,9 @@
 genpasswd
 *.swp
+*~
+*.o
+Makefile
+config.h
+config.log
+config.status
+stamp-h1
