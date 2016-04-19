@@ -1,11 +1,19 @@
+#ifdef HAVE_CONFIG_H
+#   include <config.h>
+#endif
+
 #define _XOPEN_SOURCE 500
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <strings.h>
 #include <unistd.h>
 #include <time.h>
-#include <olibc/libarg.h>
 #include <errno.h>
+
+#ifdef HAVE_GETOPT_H
+#include <getopt.h>
+#endif
 
 #define SEEDS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/."
 #define SEEDL 64
@@ -20,15 +28,30 @@
 #define MK_SHA256 1
 #define MK_SHA512 2
 
+#ifdef HAVE_GETOPT_LONG
+static struct option long_options[] = { // {{{
+	/* Options without arguments: */
+	{ "help",   no_argument,       NULL, 'h' },
+	{ "stdin",  no_argument,       NULL, 'i' },
+
+	/* Options accepting an argument: */
+	{ "method", required_argument, NULL, 'm' },
+	{ "salt",   required_argument, NULL, 's' },
+	{ 0, 0, 0, 0 }
+}; // }}}
+#endif
+
 // {{{ +-- void usage (char * prog)
-void usage (char * prog) {
+void usage (void) {
 	fprintf (
 		stderr,
+		"%s : generate password string\n"
 		"Usage: %s [OPTION]\n"
-		"       -i      given password with STDIN\n"
-		"       -m      Crypt method: md5 or sha256 or sha512 [default: sha512]\n"
-		"       -s      user define salt [default: random string]\n\n",
-		prog
+		"       -h, --help         this help messages\n"
+		"       -i, --stdin        given password with STDIN\n"
+		"       -m, --method=[md5|sha256|sha512] Crypt algorithm [default: sha512]\n"
+		"       -s, --salt=SALT    user define salt [default: random string]\n\n",
+		PACKAGE_STRING, PACKAGE_NAME
 	);
 	exit (1);
 }
@@ -129,51 +152,43 @@ int main (const int argc, const char ** argv) {
 	char *pass = null;
 	int stdin_flag = 0;
 
-	_ogetopt_cmd_int = 0;
-	_ogetopt_chk_int = -1;
-
-	while ( (opt = o_getopt (argc, argv, "m:s:i", NULL)) != -1 ) {
+#ifdef HAVE_GETOPT_LONG
+	while ( (opt = getopt_long (argc, (char *const *)argv, "him:s:", long_options, (int *) 0)) != EOF ) {
+#else
+	while ( (opt = getopt (argc, argv, "him:s:")) != EOF ) {
+#endif
 		switch (opt) {
-			case 'm' :
-				if ( strcasecmp (o_optarg, "md5") == 0 ) {
-					method = MK_MD5;
-				} else if ( strcasecmp (o_optarg, "sha256") == 0 ) {
-					method = MK_SHA256;
-				} else if ( strcasecmp (o_optarg, "sha512") == 0 ) {
-					method = MK_SHA512;
-				} else {
-					fprintf (stderr, "ERROR: invalid value of -m (%s)\n", o_optarg);
-					ofree_array (o_cmdarg);
-					usage ((char *) argv[0]);
-				}
-				break;
-			case 's' :
-				if ( o_optlen > 16 ) {
-					fprintf (stderr, "ERROR: too long value of -s (%s)\n", o_optarg);
-					usage ((char *) argv[0]);
-				}
-
-				strcpy (usalt, o_optarg);
-				break;
 			case 'i' :
 				stdin_flag = 1;
 				break;
+			case 'm' :
+				if ( strcasecmp (optarg, "md5") == 0 ) {
+					method = MK_MD5;
+				} else if ( strcasecmp (optarg, "sha256") == 0 ) {
+					method = MK_SHA256;
+				} else if ( strcasecmp (optarg, "sha512") == 0 ) {
+					method = MK_SHA512;
+				} else {
+					fprintf (stderr, "ERROR: invalid value of -m (%s)\n\n", optarg);
+					usage ();
+				}
+				break;
+			case 's' :
+				if ( strlen (optarg) > 16 ) {
+					fprintf (stderr, "ERROR: too long value of -s (%s)\n\n", optarg);
+					usage ();
+				}
+
+				strcpy (usalt, optarg);
+				break;
 			default :
-				ofree_array (o_cmdarg);
-				usage ((char *) argv[0]);
+				usage ();
 		}
 	}
 
-	// don't need cmdline argument
-	/*
-	if ( _ogetopt_cmd_int > 0 ) {
-		fprintf (stderr, "ERROR: command line argument don't need\n");
-		ofree_array (o_cmdarg);
-		usage ((char *) argv[0]);
-	}
-	*/
-
-	ofree_array (o_cmdarg);
+	// argc - opdind = number of command line argument
+	if ( (argc - optind) > 0 || argc == 1 )
+		usage ();
 
 	char salt[32] = { 0, };
 	if ( strlen (usalt) > 0 ) {

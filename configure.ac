@@ -21,6 +21,7 @@ AC_PROG_MAKE_SET
 
 # Checks for header files.
 AC_HEADER_STDC
+AC_CHECK_HEADERS([getopt.h])
 
 # Checks for library functions
 AC_CHECK_LIB(crypt, crypt)
