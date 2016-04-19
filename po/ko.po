@@ -72,7 +72,7 @@ msgstr "에러: 암호가 너무 깁니다. 최대값은 %u 입니다.\n"
 
 #: ../genpasswd.c:304
 msgid "Password: "
-msgstr "암호:        "
+msgstr "암호: "
 
 #: ../genpasswd.c:310
 msgid "Retype Password: "
