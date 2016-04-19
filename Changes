@@ -7,6 +7,7 @@ GENPASSWD 1.0.0
   - #1 support autotools
   - fixed #2 remove olibc dependnecy
   - fixed #4 enhanced salt strength
+  - fixed #6 print help messages when execute without command line options
 
 
 *  4 Apr 2016

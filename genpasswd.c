@@ -179,7 +179,7 @@ int main (const int argc, const char ** argv) {
 	}
 
 	// argc - opdind = number of command line argument
-	if ( (argc - optind) > 0 || argc == 1 )
+	if ( (argc - optind) > 0 )
 		usage ();
 
 	if ( strlen (usalt) > 0 ) {
