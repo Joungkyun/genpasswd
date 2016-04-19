@@ -266,6 +266,9 @@ int main (const int argc, const char ** argv) {
 		if ( ptr )
 			*ptr = 0;
 
+		if ( validate_password (pass) )
+			exit (1);
+
 		pass1 = strdup (pass);
 	} else {
 		pass = getpass ("Password: ");

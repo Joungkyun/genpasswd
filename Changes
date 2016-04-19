@@ -3,12 +3,14 @@ Changelog for genpasswd
 GENPASSWD 1.0.0
 ------------------------------------------------------------------------------
 
-* 19 Apr 2016
-  - #1 support autotools
-  - fixed #2 remove olibc dependnecy
-  - fixed #4 enhanced salt strength
+* 20 Apr 2016
+  - fixed #5 can't check password complexity on stdin mode
   - fixed #6 print help messages when execute without command line options
 
+* 19 Apr 2016
+  - fixed #1 support autotools
+  - fixed #2 remove olibc dependnecy
+  - fixed #4 enhanced salt strength
 
 *  4 Apr 2016
   - initilize code
