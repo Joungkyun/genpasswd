@@ -26,17 +26,28 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-DEFS   += -DLANGDIR=\"@localedir@\"
+CLEANFILES = POTFILES *.mo
+EXTRA_DIST = default.pot ko.po
 
-DISTCLEANFILES =
+all:
+	for i in `ls *.po | sed 's/\.po//'`; do \
+		$(MSGFMT) $$i.po -o $$i.mo; \
+	done
 
-SUBDIRS = . po
+install:
+	for i in `ls *.po | sed 's/\.po//'` ; do \
+		$(MKDIR_P) $(DESTDIR)$(localedir)/$$i/LC_MESSAGES/ ; \
+		$(INSTALL) -m644 $$i.mo $(DESTDIR)$(localedir)/$$i/LC_MESSAGES/$(PACKAGE).mo ; \
+	done
 
-AM_CFLAGS = -Wall
+pot:
+	find ../ -name "*.c" > POTFILES
+	$(XGETTEXT) -d default -k_ --from-code=utf-8 -s `cat POTFILES`
+	mv default.po default.pot
 
-bin_PROGRAMS = genpasswd
-genpasswd_SOURCES = genpasswd.c
-
-test-install:
-	$(MAKE) DESTDIR=`pwd`/z install
+merge:
+	for i in `ls *.po`; do \
+		$(MSGMERGE) -U $$i default.pot; \
+		rm -f $$i~; \
+	done
 

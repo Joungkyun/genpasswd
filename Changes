@@ -6,6 +6,7 @@ GENPASSWD 1.0.0
 * 20 Apr 2016
   - fixed #5 can't check password complexity on stdin mode
   - fixed #6 print help messages when execute without command line options
+  - fixed #3 supoort i18n
 
 * 19 Apr 2016
   - fixed #1 support autotools
