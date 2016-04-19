@@ -16,10 +16,12 @@ BSD-2-Clause
 
 ## Build
 
+for the detailes, see also INSTALL documents
+
 ```bash
-[root@host ~]$ cd source-directory
-[root@host source-directory]$ make
-[root@host source-directory]$ mv genpasswd /usr/bin/
+[root@host ~]$ cd genpasswd
+[root@host genpasswd]$ ./configure
+[root@host genpasswd]$ make install
 ```
 
 ## Usage
