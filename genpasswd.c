@@ -72,7 +72,6 @@ int validate_password (char *pass) {
 
 char * mksalt (int type, int size) {
 	char * salt, * rsalt;
-	char * prefix = null;
 	int i;
 
 	if ( size > 16 || size < 1 )
