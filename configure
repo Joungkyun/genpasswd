@@ -4291,6 +4291,8 @@ _ACEOF
 
   LIBS="-lcrypt $LIBS"
 
+else
+  as_fn_error $? "libcrypt not found!" "$LINENO" 5
 fi
 
 for ac_func in getopt_long

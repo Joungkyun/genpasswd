@@ -25,7 +25,7 @@ AC_HEADER_STDC
 AC_CHECK_HEADERS([getopt.h locale.h libintl.h])
 
 # Checks for library functions
-AC_CHECK_LIB(crypt, crypt)
+AC_CHECK_LIB(crypt, crypt,, [AC_MSG_ERROR(libcrypt not found!)])
 AC_CHECK_FUNCS(getopt_long,, [AC_LIBOBJ(getopt) AC_LIBOBJ(getopt1)])
 
 AC_CONFIG_FILES([Makefile po/Makefile])
