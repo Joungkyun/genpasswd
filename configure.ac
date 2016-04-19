@@ -2,7 +2,7 @@
 # Configure template for genpasswd
 
 AC_PREREQ(2.63)
-AC_INIT([genpasswd], [0.0.1], [http://oops.org])
+AC_INIT([genpasswd], [1.0.0], [http://oops.org])
 
 AC_CONFIG_AUX_DIR([tools])
 AM_INIT_AUTOMAKE([-Wall -Werror -Wno-override foreign no-dependencies])
