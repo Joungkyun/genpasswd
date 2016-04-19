@@ -1,0 +1,11 @@
+Changelog for genpasswd
+
+GENPASSWD 1.0.0
+------------------------------------------------------------------------------
+
+* 19 Apr 2016
+  - support autotools
+
+
+*  4 Apr 2016
+  - initilize code

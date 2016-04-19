@@ -1,0 +1,22 @@
+* genpasswd installation document
+
+19 Apr 2016 JoungKyun.Kim <http://oops.org>
+
+
+
+1. Obtain the genpaswd source and unpack
+
+   [root@host ~]$ tar xvfpj genpasswd-@VERSION@.tar.bz2
+
+2. Configure and build genpasswd. This is where you customize genpasswd with
+   various options, like which genpasswd execution file will be enabled. Run
+   `./configure --help` for a list of available options.
+
+   [root@host genpasswd-@VERSION@]$ ./configure --bindir=/usr/bin
+   [root@host genpasswd-@VERSION@]$ make install
+
+   If you want to pre installation such as rpmbuild environment, you can use
+   DESTDIR environment as follows:
+
+   [root@host genpasswd-@VERSION@]$ make install DESTDIR=/some/path
+
