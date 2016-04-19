@@ -110,10 +110,9 @@ char * generate_salt (int type) {
 	char * salt, * rsalt;
 	int i, size;
 
-	if ( type == MK_SHA256 || type == MK_SHA512 )
-		size = 16;
-	else
-		size = 8;
+	size = 8;
+	if ( type > MK_MD5 )
+		size *= 2;
 
 	if ( (salt = malloc (sizeof (char) * (size + 4))) == null )
 		return (char *) 0;
