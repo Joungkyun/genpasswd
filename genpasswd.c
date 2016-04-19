@@ -20,6 +20,7 @@
 #define MK_SHA256 1
 #define MK_SHA512 2
 
+// {{{ +-- void usage (char * prog)
 void usage (char * prog) {
 	fprintf (
 		stderr,
@@ -31,7 +32,9 @@ void usage (char * prog) {
 	);
 	exit (1);
 }
+// }}}
 
+// {{{ +-- int validate_password (char *pass)
 int validate_password (char *pass) {
 	int lower = 0;
 	int upper = 0;
@@ -69,7 +72,9 @@ int validate_password (char *pass) {
 	fprintf (stderr, "BAD PASSWORD: The password contains less than 3 character classes\n");
 	return 1;
 }
+// }}}
 
+// {{{ +-- char * mksalt (int type, int size)
 char * mksalt (int type, int size) {
 	char * salt, * rsalt;
 	int i;
@@ -112,7 +117,9 @@ char * mksalt (int type, int size) {
 
 	return salt;
 }
+// }}}
 
+// {{{ +-- int main (const int argc, const char ** argv)
 int main (const int argc, const char ** argv) {
 	int opt;
 	int method = -1;
@@ -254,3 +261,4 @@ int main (const int argc, const char ** argv) {
 
 	return 0;
 }
+// }}}
