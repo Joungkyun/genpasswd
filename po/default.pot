@@ -1,0 +1,82 @@
+# genpasswd template file
+# Copyright (C) 2016 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# JoungKyun.Kim <http://oops.org>, 2016.
+#
+# This file is made by 'make pot'
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: genpasswd 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-20 00:55+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../genpasswd.c:79
+#, c-format
+msgid ""
+"%s : generate password string\n"
+"Usage: %s [OPTION]\n"
+"       -h, --help         this help messages\n"
+"       -i, --stdin        given password with STDIN\n"
+"       -m, --method=[md5|sha256|sha512] Crypt algorithm [default: sha512]\n"
+"       -s, --salt=SALT    user define salt [default: random string]\n"
+"\n"
+msgstr ""
+
+#: ../genpasswd.c:126
+#, c-format
+msgid "BAD PASSWORD: The password contains less than 3 character classes\n"
+msgstr ""
+
+#: ../genpasswd.c:102
+#, c-format
+msgid "BAD PASSWORD: The password is shorter than 9 characters\n"
+msgstr ""
+
+#: ../genpasswd.c:199
+#, c-format
+msgid ""
+"ERROR: invalid value of -m (%s)\n"
+"\n"
+msgstr ""
+
+#: ../genpasswd.c:314
+#, c-format
+msgid "Error: Sorry, passwords are not match.\n"
+msgstr ""
+
+#: ../genpasswd.c:282
+#, c-format
+msgid "Error: error reading from stdin: %s\n"
+msgstr ""
+
+#: ../genpasswd.c:288
+#, c-format
+msgid "Error: password too long, maximum is %u\n"
+msgstr ""
+
+#: ../genpasswd.c:304
+msgid "Password: "
+msgstr ""
+
+#: ../genpasswd.c:310
+msgid "Retype Password: "
+msgstr ""
+
+#: ../genpasswd.c:226
+#, c-format
+msgid "The given salt is invalid. "
+msgstr ""
+
+#: ../genpasswd.c:232
+#, c-format
+msgid "The salt of %s is started by '$%c$'\n"
+msgstr ""

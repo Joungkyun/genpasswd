@@ -18,15 +18,16 @@ AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_MKDIR_P
 AC_PROG_MAKE_SET
+AM_PO_SUBDIRS
 
 # Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS([getopt.h])
+AC_CHECK_HEADERS([getopt.h locale.h libintl.h])
 
 # Checks for library functions
 AC_CHECK_LIB(crypt, crypt)
 AC_CHECK_FUNCS(getopt_long,, [AC_LIBOBJ(getopt) AC_LIBOBJ(getopt1)])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile po/Makefile])
 
 AC_OUTPUT
