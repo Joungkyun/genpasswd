@@ -21,12 +21,20 @@
 	#define null NULL
 #endif
 #ifndef safe_free
-#define safe_free(x) do{if(x){free(x);x=NULL;}}while(0)
+	#define safe_free(x) do{if(x){free(x);x=NULL;}}while(0)
 #endif
 
-#define MK_MD5    0
-#define MK_SHA256 1
-#define MK_SHA512 2
+#ifndef safe_strcpy
+	#define safe_strcpy(x,y,z) (strlen(y)>=z)?strncpy(x,y,z-1):strcpy(x,y)
+#endif
+
+#ifndef safe_strcat
+	#define safe_strcat(x,y,z) (strlen(y)>=(z-strlen(x)))?strncat(x,y,z-1):strcat(x,y)
+#endif
+
+#define MK_MD5    0x31
+#define MK_SHA256 0x35
+#define MK_SHA512 0x36
 
 #ifdef HAVE_GETOPT_LONG
 static struct option long_options[] = { // {{{
@@ -97,15 +105,14 @@ int validate_password (char *pass) {
 }
 // }}}
 
-// {{{ +-- char * mksalt (int type, int size)
-char * mksalt (int type, int size) {
+// {{{ +-- char * generate_salt (int type)
+char * generate_salt (int type) {
 	char * salt, * rsalt;
-	int i;
+	int i, size;
 
-	if ( size > 16 || size < 1 )
-		size = 8;
-
-	if ( type == MK_MD5 )
+	if ( type == MK_SHA256 || type == MK_SHA512 )
+		size = 16;
+	else
 		size = 8;
 
 	if ( (salt = malloc (sizeof (char) * (size + 4))) == null )
@@ -114,17 +121,7 @@ char * mksalt (int type, int size) {
 	rsalt = salt;
 
 	memset (salt, 0, sizeof (char) * (size + 4));
-
-	switch (type) {
-		case MK_MD5 :
-			strcpy (salt, "$1$");
-			break;
-		case MK_SHA256 :
-			strcpy (salt, "$5$");
-			break;
-		default:
-			strcpy (salt, "$6$");
-	}
+	sprintf (salt, "$%c$", type);
 
 	rsalt += 3;
 
@@ -145,11 +142,12 @@ char * mksalt (int type, int size) {
 // {{{ +-- int main (const int argc, const char ** argv)
 int main (const int argc, const char ** argv) {
 	int opt;
-	int method = -1;
+	int method     = MK_SHA512;
 	char usalt[64] = { 0, };
-	char *pass1 = null;
-	char *pass2 = null;
-	char *pass = null;
+	char salt[32]  = { 0, };
+	char *pass1    = null;
+	char *pass2    = null;
+	char *pass     = null;
 	int stdin_flag = 0;
 
 #ifdef HAVE_GETOPT_LONG
@@ -174,12 +172,7 @@ int main (const int argc, const char ** argv) {
 				}
 				break;
 			case 's' :
-				if ( strlen (optarg) > 16 ) {
-					fprintf (stderr, "ERROR: too long value of -s (%s)\n\n", optarg);
-					usage ();
-				}
-
-				strcpy (usalt, optarg);
+				safe_strcpy (usalt, optarg, sizeof (usalt));
 				break;
 			default :
 				usage ();
@@ -190,20 +183,43 @@ int main (const int argc, const char ** argv) {
 	if ( (argc - optind) > 0 || argc == 1 )
 		usage ();
 
-	char salt[32] = { 0, };
 	if ( strlen (usalt) > 0 ) {
-		switch (method) {
-			case MK_MD5 :
-				sprintf (salt, "$1$%s$", usalt);
-				break;
-			case MK_SHA256 :
-				sprintf (salt, "$5$%s$", usalt);
-				break;
-			default :
-				sprintf (salt, "$6$%s$", usalt);
+		/*
+		 * case given user define salt
+		 */
+		char salt_prefix[4] = { 0, };
+		sprintf (salt_prefix, "$%c$", method);
+
+		// check invalid salt
+		if ( usalt[0] == '$' && usalt[2] == '$' ) {
+			if ( strncmp (salt_prefix, usalt, 3) != 0 ) {
+				char * algo;
+				fprintf (stderr, "The given salt is invalide. ");
+
+				if ( method == MK_MD5 ) algo = "md5";
+				else if ( method == MK_SHA256 ) algo = "sha256";
+				else algo = "sha512";
+
+				fprintf (stderr, "The salt of %s is started by '$%c$'\n", algo, method);
+				exit (1);
+			}
+
+			{
+				char * ptr = strchr (usalt + 3, '$');
+				if ( ptr != null )
+					*ptr = 0;
+
+				safe_strcpy (salt, usalt, sizeof (salt));
+			}
+		} else {
+			strcpy (salt, salt_prefix);
+			safe_strcat (salt, usalt, sizeof (salt));
 		}
 	} else {
-		char *rsalt = mksalt (method, 8);
+		/*
+		 * case generate random salt
+		 */
+		char *rsalt = generate_salt (method);
 		strcpy (salt, rsalt);
 		safe_free (rsalt);
 	}
@@ -271,7 +287,7 @@ int main (const int argc, const char ** argv) {
 		safe_free (pass2);
 	}
 
-	printf("%s\n", crypt(pass1, (char*) salt));
+	printf("%s\n", crypt (pass1, (char*) salt));
 	safe_free (pass1);
 
 	return 0;
