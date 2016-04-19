@@ -16,7 +16,7 @@ BSD-2-Clause
 
 ## Build
 
-for the detailes, see also INSTALL documents
+for the detailes, see also [INSTALL](INSTALL) documents
 
 ```bash
 [root@host ~]$ cd genpasswd
