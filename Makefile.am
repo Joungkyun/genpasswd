@@ -38,6 +38,9 @@ AM_CFLAGS = -Wall
 bin_PROGRAMS = genpasswd
 genpasswd_SOURCES = genpasswd.c
 
+distclean-local:
+	-rm -rf autom4te.cache test-install z *.bz2 *.gz
+
 test-install: all-recursive
 	$(MAKE) DESTDIR=`pwd`/z install
 
