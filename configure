@@ -2713,6 +2713,8 @@ ac_config_headers="$ac_config_headers config.h"
 
 
 
+
+
 # Checks for programs.
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -4319,7 +4321,7 @@ fi
 done
 
 
-ac_config_files="$ac_config_files Makefile po/Makefile"
+ac_config_files="$ac_config_files Makefile po/Makefile tests/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -5049,6 +5051,7 @@ do
     "po-directories") CONFIG_COMMANDS="$CONFIG_COMMANDS po-directories" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "po/Makefile") CONFIG_FILES="$CONFIG_FILES po/Makefile" ;;
+    "tests/Makefile") CONFIG_FILES="$CONFIG_FILES tests/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

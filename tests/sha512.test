@@ -1,0 +1,28 @@
+#!/bin/sh
+
+GENPASSWD="../genpasswd"
+SALT="asdfqwer"
+
+if [ ! -f "${GENPASSWD}" ]; then
+	echo 1..1
+	echo "ok genpasswd binary # SKIP because can not found ${GENPASSWD}"
+	exit 0
+fi
+
+echo 1..2 # Number of tests to be executed.
+
+
+ans='$6$asdfqwer$5S9yM1vY5oWIM37.96DLi1znHZ98hy/nKUFf.5Sq4ryd7l51XkF3h/yZXB1dQGSMlS/k5EQ3.mz9pGg1uGeYZ/'
+res=$(echo 'asdfQWER0123' | ${GENPASSWD} -i -m sha512 -s "${SALT}" 2> /dev/null)
+
+if [ $? -eq 0 ]; then
+	echo 'ok - SHA512 generate'
+	if [ "${res}" = "${ans}" ]; then	
+		echo 'ok - SHA512 matching'
+	else
+		echo 'not ok - SHA512 matching # TODO need checking that Generated hash string is not mismatched'
+	fi
+else
+	echo 'not ok - SHA512 generate'
+	echo 'ok - SHA512 matching # SKIP because generate error'
+fi

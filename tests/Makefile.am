@@ -26,17 +26,9 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-DEFS   += -DLANGDIR=\"@localedir@\"
+TEST_LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) \
+				  $(top_srcdir)/tools/tap-driver.sh
 
-DISTCLEANFILES =
+TESTS = md5.test sha256.test sha512.test
 
-SUBDIRS = . po tests
-
-AM_CFLAGS = -Wall
-
-bin_PROGRAMS = genpasswd
-genpasswd_SOURCES = genpasswd.c
-
-test-install: all-recursive
-	$(MAKE) DESTDIR=`pwd`/z install
-
+EXTRA_DIST = $(TESTS)

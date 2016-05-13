@@ -1,0 +1,34 @@
+#!/bin/sh
+
+GENPASSWD="../genpasswd"
+SALT="asdfqwer"
+
+#echo 'ok 1 - Swallows fly'
+#echo 'not ok 2 - Caterpillars fly # TODO metamorphosis in progress'
+#echo 'ok 3 - Pigs fly # SKIP not enough acid'
+#echo '# I just love word plays ...'
+#echo 'ok 4 - Flies fly too :-)'
+
+if [ ! -f "${GENPASSWD}" ]; then
+	echo 1..1
+	echo "ok genpasswd binary # SKIP because can not found ${GENPASSWD}"
+	exit 0
+fi
+
+echo 1..2 # Number of tests to be executed.
+
+
+ans='$1$asdfqwer$8RlUTUfLDLL0XZtJKExdJ1'
+res=$(echo 'asdfQWER0123' | ${GENPASSWD} -i -m md5 -s "${SALT}" 2> /dev/null)
+
+if [ $? -eq 0 ]; then
+	echo 'ok - MD5 generate'
+	if [ "${res}" = "${ans}" ]; then	
+		echo 'ok - MD5 matching'
+	else
+		echo 'not ok - MD5 matching # TODO need checking that Generated hash string is not mismatched'
+	fi
+else
+	echo 'not ok - MD5 generate'
+	echo 'ok - MD5 matching # SKIP because generate error'
+fi

@@ -13,6 +13,8 @@ AC_PREFIX_DEFAULT([/usr/local])
 
 AC_DEFUN([AC_DATAROOTDIR_CHECKED])
 
+AC_REQUIRE_AUX_FILE([tap-driver.sh])
+
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL
@@ -28,6 +30,6 @@ AC_CHECK_HEADERS([getopt.h locale.h libintl.h])
 AC_CHECK_LIB(crypt, crypt,, [AC_MSG_ERROR(libcrypt not found!)])
 AC_CHECK_FUNCS(getopt_long,, [AC_LIBOBJ(getopt) AC_LIBOBJ(getopt1)])
 
-AC_CONFIG_FILES([Makefile po/Makefile])
+AC_CONFIG_FILES([Makefile po/Makefile tests/Makefile])
 
 AC_OUTPUT

@@ -109,7 +109,8 @@ subdir = .
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure $(am__configure_deps) \
 	$(srcdir)/config.h.in INSTALL tools/install-sh tools/missing \
-	$(top_srcdir)/tools/install-sh $(top_srcdir)/tools/missing
+	$(top_srcdir)/tools/install-sh $(top_srcdir)/tools/missing \
+	$(top_srcdir)/tools/tap-driver.sh
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -333,7 +334,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 DISTCLEANFILES = 
-SUBDIRS = . po
+SUBDIRS = . po tests
 AM_CFLAGS = -Wall
 genpasswd_SOURCES = genpasswd.c
 all: config.h
@@ -866,7 +867,7 @@ uninstall-am: uninstall-binPROGRAMS
 	uninstall-binPROGRAMS
 
 
-test-install:
+test-install: all-recursive
 	$(MAKE) DESTDIR=`pwd`/z install
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
