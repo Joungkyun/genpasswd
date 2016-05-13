@@ -334,6 +334,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 DISTCLEANFILES = 
+EXTRA_DIST = README.md LICENSE
 SUBDIRS = . po tests
 AM_CFLAGS = -Wall
 genpasswd_SOURCES = genpasswd.c

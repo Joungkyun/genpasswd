@@ -5,6 +5,7 @@ GENPASSWD 1.0.1
 
 * 14 May 2016
   - fixed #8 add automake test-suites
+  - fixed #10 missing dist files
 
 * 20 Apr 2016
   - fixed #7 configure pass when crypt library doesn't exists

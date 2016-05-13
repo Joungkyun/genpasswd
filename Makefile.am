@@ -29,6 +29,7 @@
 DEFS   += -DLANGDIR=\"@localedir@\"
 
 DISTCLEANFILES =
+EXTRA_DIST = README.md LICENSE
 
 SUBDIRS = . po tests
 
