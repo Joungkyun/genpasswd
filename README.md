@@ -1,7 +1,7 @@
 genpasswd
 =========
 
-[![Build Status](https://api.travis-ci.org/Joungkyun/genpasswd.svg)](https://travis-ci.org/Joungkyun/genpasswd)
+[![Build Status](https://travis-ci.org/Joungkyun/genpasswd.svg)](https://travis-ci.org/Joungkyun/genpasswd)
 
 copyright (c) 2016 JoungKyun.Kim <http://oops.org> all rights reserved.
 
