@@ -3,3 +3,6 @@ language: c
 compiler:
     - gcc
     - clang
+
+script:
+    - tests/travis/default.sh
