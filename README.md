@@ -1,6 +1,8 @@
 genpasswd
 =========
 
+[![Build Status](https://api.travis-ci.org/Joungkyun/genpasswd.svg)](https://api.travis-ci.org/Joungkyun/genpasswd.svg)
+
 copyright (c) 2016 JoungKyun.Kim <http://oops.org> all rights reserved.
 
 Generate password with MD5, SHA256 or SHA512 algorithm and print stdout.
