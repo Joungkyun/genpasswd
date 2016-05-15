@@ -1,1 +1,1 @@
-./configure && make && make check
+./autogen.sh && ./configure && make && make check
