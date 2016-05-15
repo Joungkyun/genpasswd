@@ -21,9 +21,9 @@ matrix:
         - compiler: "clang"
     include:
         - compiler: "gcc"
-          env: CFLAGS="-g -02 -Wall"
+          env: CFLAGS="-g -O2 -Wall"
         - compiler: "clang"
-          env: CFLAGS="-g -02 -Wall"
+          env: CFLAGS="-g -O2 -Wall"
 
 script:
     - tests/travis/run.sh
