@@ -5,4 +5,4 @@ compiler:
     - clang
 
 script:
-    - tests/travis/default.sh
+    - tests/travis/run.sh
