@@ -12,6 +12,7 @@ addons:
             - gdb
             - libtool
             - autotools-dev
+            - valgrind
 
 
 matrix:
