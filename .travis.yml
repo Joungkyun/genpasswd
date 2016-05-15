@@ -4,5 +4,26 @@ compiler:
     - gcc
     - clang
 
+addons:
+    apt:
+        packages:
+            - automake
+            - autoconf
+            - gdb
+            - libtool
+            - autotools-dev
+            - valgrind
+
+
+matrix:
+    exclude:
+        - compiler: "gcc"
+        - compiler: "clang"
+    include:
+        - compiler: "gcc"
+          env: CFLAGS="-g -02 -Wall"
+        - compiler: "clang"
+          env: CFLAGS="-g -02 -Wall"
+
 script:
     - tests/travis/run.sh
