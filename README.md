@@ -1,7 +1,7 @@
 genpasswd
 =========
 
-[![Build Status](https://travis-ci.org/Joungkyun/genpasswd.svg)](https://travis-ci.org/Joungkyun/genpasswd)
+[![Build Status](https://travis-ci.org/Joungkyun/genpasswd.svg)](https://travis-ci.org/Joungkyun/genpasswd) ![License](https://img.shields.io/badge/license-BSD-blue.svg)
 
 copyright (c) 2016 JoungKyun.Kim <http://oops.org> all rights reserved.
 
