@@ -27,3 +27,6 @@ matrix:
 
 script:
     - tests/travis/run.sh
+
+notifications:
+      email: false
